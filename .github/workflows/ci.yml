@@ -1,4 +1,4 @@
-name: Maven CI
+name: Maven CI with SonarQube
 
 on:
   push:
@@ -22,3 +22,10 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
         working-directory: ms-app
+
+      - name: SonarQube Scan
+        run: mvn sonar:sonar
+        working-directory: ms-app
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: http://localhost:9000
